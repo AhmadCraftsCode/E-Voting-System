@@ -1,12 +1,13 @@
 #include<iostream>
 #include"User.h"
+#include"Admin.h"
 #include"Voter.h"
 
 using namespace std;
 
 int main() {
-	Voter voter;
-	main_menu(voter);
+	string user, pass;
+	main_menu(user,pass);
 
 	return 0;
 }

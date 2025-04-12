@@ -1,13 +1,14 @@
 #include<iostream>
 #include<string>	
 #include"User.h"
+#include"Admin.h"
+#include"Voter.h"
 #include<fstream>
 #include<sstream>
 #include<Windows.h>
 
-
 using namespace std;
-void login_menu(User& voter) {
+void login_menu(string user, string pass) {
 	cout << "\t\t\t\t.....................................................\n";
 	cout << "\t\t\t\t::::::::::::::: LOGIN TO YOUR ACCOUNT :::::::::::::::\n";
 	cout << "\t\t\t\t:\t\t1. Admin                            :\n";
@@ -22,20 +23,21 @@ void login_menu(User& voter) {
 
 	switch (choice) {
 	case 1:
+		admin_login();
 		break;
 	case 2:
-		voter.login();
+		voter_login();
 		break;
 	case 3:
 		//Candidate candidate;
 		//candidate.login();
 		break;
 	case 4:
-		main_menu(voter);
+		main_menu(user,pass);
 		break;
 	default:
 		cout << "Invalid choice!\n";
-		login_menu(voter);
+		login_menu(user,pass);
 		break;
 	}
 }
@@ -58,8 +60,7 @@ void signup_menu() {
 		//admin.signup();
 		break;
 	case 2:
-		//Voter voter;
-		//voter.signup();
+		voter_signup();
 		break;
 	case 3:
 		//Candidate candidate;
@@ -72,7 +73,7 @@ void signup_menu() {
 		break;
 	}
 }
-void main_menu(User& voter) {
+void main_menu(string user, string pass) {
 	cout << "\t\t\t\t.....................................................\n";
 	cout << "\t\t\t\t::::::::::::::: ONLINE VOTING SYSTEM ::::::::::::::::\n";
 	cout << "\t\t\t\t:\t\t1. Login                            :\n";
@@ -86,7 +87,7 @@ void main_menu(User& voter) {
 
 	switch (choice) {
 	case 1:
-		login_menu(voter);
+		login_menu(user, pass);
 		break;
 	case 2:
 		signup_menu();
@@ -96,7 +97,7 @@ void main_menu(User& voter) {
 		break;
 	default:
 		cout << "Invalid choice!\n";
-		main_menu(voter);
+		main_menu(user,pass);
 		break;
 	}
 }
@@ -126,50 +127,6 @@ string User::getName() { return name; }
 string User::getCNIC() { return CNIC; }
 int User::getAge() { return age; }
 string User::getPostalCode() { return postalCode; }
-
-// User login function
-void User ::login() {
-	system("cls");
-	string id, pw;
-	cout << "\tEnter Login ID: ";
-	cin >> id;
-
-	cout << "\tEnter Password: ";
-	cin >> pw;
-
-	ifstream infile("login.txt");
-	if (!infile) {
-		cout << "\tError: File Can't Open!" << endl;
-	}
-	else {
-		string line;
-		bool found = false;
-		while (getline(infile, line)) {
-			stringstream ss;
-			ss << line;
-			string userID, userPW;
-			char delimiter;
-			ss >> userID >> delimiter >> userPW;
-
-			if (id == userID && pw == userPW) {
-				found = true;
-
-				cout << "\tPlease Wait";
-				for (int i = 0; i < 3; i++) {
-					cout << ".";
-					Sleep(800);
-				}
-				system("cls");
-				cout << "\tWelcome To This Page!" << endl;
-			}
-		}
-		if (!found) {
-			cout << "\tError: Incorrect Login ID Or Password!" << endl;
-		}
-	}
-	infile.close();
-	Sleep(5000);
-}
 
 // Function to display user information	
 void User::displayUserInfo() {

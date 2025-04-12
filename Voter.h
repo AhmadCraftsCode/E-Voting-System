@@ -27,8 +27,17 @@ public:
 	// Cast vote
 	void castVote();
 
+	// Voter menu
+	void voter_menu();
+
 	// Function to display voter information
 	void displayVoterInfo();
+
+	
 };
+
+void voter_login();
+void voter_signup();
+
 
 #endif
